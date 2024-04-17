@@ -19,7 +19,7 @@ const HomePage = () => {
     async (username = "ArmanKukreti") => {
       setLoading(true);
       try {
-        const res = await axios.get(`http://localhost:5000/api/users/profile/${username}`);
+        const res = await axios.get(`/api/users/profile/${username}`);
         const { userProfile, repos } = res.data;
    
         setUserProfile(userProfile);

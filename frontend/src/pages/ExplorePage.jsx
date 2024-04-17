@@ -17,7 +17,7 @@ const ExplorePage = () => {
 
     try {
       //5000 requests per hour for authenticated users
-      const res = await axios.get(`http://localhost:5000/api/explore/repos/${language}`);
+      const res = await axios.get(`/api/explore/repos/${language}`);
       const { repos } = res.data;
       setRepos(repos);
 
