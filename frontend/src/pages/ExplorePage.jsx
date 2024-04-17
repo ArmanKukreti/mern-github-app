@@ -17,13 +17,9 @@ const ExplorePage = () => {
 
     try {
       //5000 requests per hour for authenticated users
-      const res = await axios.get(`https://api.github.com/search/repositories?q=language:${language}&sort=stars&order=desc&per_page=10`, {
-        headers: {
-          Authorization: `token ${import.meta.env.VITE_GITHUB_API_KEY}`
-        }
-      });
-      const data = res.data;
-      setRepos(data.items);
+      const res = await axios.get(`http://localhost:5000/api/explore/repos/${language}`);
+      const { repos } = res.data;
+      setRepos(repos);
 
       setSelectedLanguage(language);
 

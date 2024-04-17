@@ -19,26 +19,13 @@ const HomePage = () => {
     async (username = "ArmanKukreti") => {
       setLoading(true);
       try {
-        //60 requests per hour, 5000 requests per hour for authenticated requests
-        const userRes = await axios.get(
-          `https://api.github.com/users/${username}`,
-          {
-            headers: {
-              Authorization: `token ${import.meta.env.VITE_GITHUB_API_KEY}`,
-            },
-          }
-        );
-        const userProfile = userRes.data;
+        const res = await axios.get(`http://localhost:5000/api/users/profile/${username}`);
+        const { userProfile, repos } = res.data;
+   
         setUserProfile(userProfile);
-
-        const repoRes = await axios.get(userProfile.repos_url);
-        const repos = repoRes.data;
 
         repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
         setRepos(repos);
-
-        console.log("userPro:", userProfile);
-        console.log("repos:", repos);
 
         return { userProfile, repos };
       } catch (error) {
@@ -65,7 +52,7 @@ const HomePage = () => {
     setUserProfile(userProfile);
     setRepos(repos);
     setLoading(false);
-    setSortType('recent');
+    setSortType("recent");
   };
 
   const onSort = (sortType) => {
